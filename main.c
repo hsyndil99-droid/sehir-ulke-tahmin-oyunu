@@ -266,6 +266,7 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 			}
 			else{
 				printf("\nBu ipucu kullanıldı.\n");
+				p=0;
 			}
 		   
 	        break;
@@ -283,6 +284,7 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 			}    
 			else{
 				printf("\nBu ipucu kullanıldı.\n");
+				p=0;
 			}
 			break;
 			
@@ -300,4 +302,5 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 	
 	return p;
 }
+
 
