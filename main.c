@@ -1,9 +1,9 @@
 #include <stdio.h>
-#include <time.h>              //srand fonksiyonu için gerekli
-#include <stdlib.h>            //srand fonksiyonu için gerekli
-#include <locale.h>            //türkçe çıktı karakterler için gerekli
-#include <string.h>            //dizilerdeki işlemler için gerekli              
-#include <ctype.h>             //tahmin kelimelerindeki harfleri büyütmek için gerekli[toupper()]
+#include <time.h>              //srand fonksiyonu iÃ§in gerekli
+#include <stdlib.h>            //srand fonksiyonu iÃ§in gerekli
+#include <locale.h>            //tÃ¼rkÃ§e Ã§Ä±ktÄ± karakterler iÃ§in gerekli
+#include <string.h>            //dizilerdeki iÅŸlemler iÃ§in gerekli              
+#include <ctype.h>             //tahmin kelimelerindeki harfleri bÃ¼yÃ¼tmek iÃ§in gerekli[toupper()]
 #include "sehirler_ulkeler.h"  
 
 int rastgele(int x);
@@ -12,30 +12,30 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 
 
 int main(void) {
-	setlocale(LC_ALL, "Turkish");       //Türkçe karakterleri terminalde doğru gösterir.
+	setlocale(LC_ALL, "Turkish");       //TÃ¼rkÃ§e karakterleri terminalde doÄŸru gÃ¶sterir.
 	srand(time(NULL));
 	
 	
 	//KURALLAR
 
-	printf("---Şehir/Ülke Tahmin Oyununa Hoşgeldiniz---\n\n\a");
-	printf("Oyuna başlamadan önce genel kuralları görmek için ENTER'a basınız.\n");
+	printf("---Åehir/Ãœlke Tahmin Oyununa HoÅŸgeldiniz---\n\n\a");
+	printf("Oyuna baÅŸlamadan Ã¶nce genel kurallarÄ± gÃ¶rmek iÃ§in ENTER'a basÄ±nÄ±z.\n");
 	getchar();
-	printf("Oyuna 150 puan ile başlıyorsunuz.\n");
-	printf("Her bilmediğiniz turda 10 puan kaybedersiniz.\n");
-	printf("Ayrıca puan kullanarak ipucu alabilirsiniz.\n");
-	printf("Her modda yalnızca 3 ipucu vardır.\n");
-	printf("Puanınız veya hakkınız bittiğinde oyun sonlanır.\n\n");
-	printf("Tahmin yapacağınız kelimelerde lütfen Türkçe karakter(ç,ğ,ı,ö,ş,ü,Ç,Ğ,İ,Ö,Ş,Ü) kullanmayınız.\n");
-	printf("İZMİR yerine Izmir, Çin halk cumhuriyeti yerine Cin Halk Cumhuriyeti vb.\n\n");
-	printf("Oyun modu seçmek için ENTER'a basın.\n\n");
+	printf("Oyuna 150 puan ile baÅŸlÄ±yorsunuz.\n");
+	printf("Her bilmediÄŸiniz turda 10 puan kaybedersiniz.\n");
+	printf("AyrÄ±ca puan kullanarak ipucu alabilirsiniz.\n");
+	printf("Her modda yalnÄ±zca 3 ipucu vardÄ±r.\n");
+	printf("PuanÄ±nÄ±z veya hakkÄ±nÄ±z bittiÄŸinde oyun sonlanÄ±r.\n\n");
+	printf("Tahmin yapacaÄŸÄ±nÄ±z kelimelerde lÃ¼tfen TÃ¼rkÃ§e karakter(Ã§,ÄŸ,Ä±,Ã¶,ÅŸ,Ã¼,Ã‡,Ä,Ä°,Ã–,Å,Ãœ) kullanmayÄ±nÄ±z.\n");
+	printf("Ä°ZMÄ°R yerine Izmir, Ã‡in halk cumhuriyeti yerine Cin Halk Cumhuriyeti vb.\n\n");
+	printf("Oyun modu seÃ§mek iÃ§in ENTER'a basÄ±n.\n\n");
 	getchar();
 	
 	
 	
-	// Mod seçimi ve rastgele şehir/ülke seçilmesi
+	// Mod seÃ§imi ve rastgele ÅŸehir/Ã¼lke seÃ§ilmesi
 	
-	printf("Şehir modu için '1' tuşlayınız.\t\t\tÜlke modu için '2' tuşlayınız.\n");
+	printf("Åehir modu iÃ§in '1' tuÅŸlayÄ±nÄ±z.\t\t\tÃœlke modu iÃ§in '2' tuÅŸlayÄ±nÄ±z.\n");
 	int secim = getchar();
 	
 	char dogru_cevap[50];
@@ -45,11 +45,11 @@ int main(void) {
 	
 	switch(secim){
 		case '1':
-			printf("\n\n\nŞehir modunda 7 hakkınız vardır.\n");
-			printf("Şehir Modu Başlatılıyor...\n\n\n");
+			printf("\n\n\nÅehir modunda 7 hakkÄ±nÄ±z vardÄ±r.\n");
+			printf("Åehir Modu BaÅŸlatÄ±lÄ±yor...\n\n\n");
 			
-			indeks=rastgele(81);                                             //Rastgele şehir seçildi.  
-			strcpy(dogru_cevap, Sehirler[indeks].teknik_ad);                 //Şehir ile birlikte teknik isim ve bulunduğu bölge değişkene atandı.
+			indeks=rastgele(81);                                             //Rastgele ÅŸehir seÃ§ildi.  
+			strcpy(dogru_cevap, Sehirler[indeks].teknik_ad);                 //Åehir ile birlikte teknik isim ve bulunduÄŸu bÃ¶lge deÄŸiÅŸkene atandÄ±.
 			strcpy(dogru,Sehirler[indeks].gorsel_ad);
 			strcpy(bolge,Sehirler[indeks].bolge);
 			hak=7;
@@ -57,11 +57,11 @@ int main(void) {
 			
 			break;
 		case '2':
-			printf("\n\n\nÜlke modunda 10 hakkınız vardır.\n");
-			printf("Ülke Modu Başlatılıyor...\n\n\n");
+			printf("\n\n\nÃœlke modunda 10 hakkÄ±nÄ±z vardÄ±r.\n");
+			printf("Ãœlke Modu BaÅŸlatÄ±lÄ±yor...\n\n\n");
 			
-			indeks=rastgele(196);                                            //Rastgele ülke seçildi.
-			strcpy(dogru_cevap, Ulkeler[indeks].teknik_ad);                  //Ülke ile birlikte teknik isim ve bulunduğu kıta değişkene atandı.
+			indeks=rastgele(196);                                            //Rastgele Ã¼lke seÃ§ildi.
+			strcpy(dogru_cevap, Ulkeler[indeks].teknik_ad);                  //Ãœlke ile birlikte teknik isim ve bulunduÄŸu kÄ±ta deÄŸiÅŸkene atandÄ±.
 			strcpy(dogru,Ulkeler[indeks].gorsel_ad);
 			strcpy(bolge,Ulkeler[indeks].bolge);
 			hak=10;
@@ -69,7 +69,7 @@ int main(void) {
 			
 			break;
 		default:
-            printf("\nHata: Geçersiz seçim. Programdan çıkılıyor.\n");       
+            printf("\nHata: GeÃ§ersiz seÃ§im. Programdan Ã§Ä±kÄ±lÄ±yor.\n");       
             mod=0;
             break;
 	}
@@ -78,18 +78,18 @@ int main(void) {
 	else{
 	
 	printf("***********************************************************************************************************************\n\n\n");
-	//Oyun Başlangıç ekranı
+	//Oyun BaÅŸlangÄ±Ã§ ekranÄ±
 	
 	if(mod == 1){
-		printf("Şehir:");
+		printf("Åehir:");
 	}
 	else{
-		printf("Ülke:");
+		printf("Ãœlke:");
 	}
 	
-	int i,harf=0,uzunluk=strlen(dogru_cevap);         //Seçilen cevap harf sayısınca alt tire(_) ile ekrana yazdırıldı. 
-	char gorunen[50];                                 //Ayrıca ekrana yazılan alt tireli gizli cevap gorunen değişkenine olduğu gibi yazıldı.
-	for(i=0;i<uzunluk;i++){                           //Bunun sebebi ipucu sayfasında daha rahat işlem yapabilmek için.
+	int i,harf=0,uzunluk=strlen(dogru_cevap);         //SeÃ§ilen cevap harf sayÄ±sÄ±nca alt tire(_) ile ekrana yazdÄ±rÄ±ldÄ±. 
+	char gorunen[50];                                 //AyrÄ±ca ekrana yazÄ±lan alt tireli gizli cevap gorunen deÄŸiÅŸkenine olduÄŸu gibi yazÄ±ldÄ±.
+	for(i=0;i<uzunluk;i++){                           //Bunun sebebi ipucu sayfasÄ±nda daha rahat iÅŸlem yapabilmek iÃ§in.
 		if(dogru_cevap[i] == ' '){
 			printf(" ");
 			gorunen[i]=' ';
@@ -100,21 +100,21 @@ int main(void) {
 			harf++;
 		}
 	}
-	gorunen[uzunluk] = '\0';       //Gorunen değişkeninin son satırına \0 eklenerek  tam bir string yapılmıştır.
+	gorunen[uzunluk] = '\0';       //Gorunen deÄŸiÅŸkeninin son satÄ±rÄ±na \0 eklenerek  tam bir string yapÄ±lmÄ±ÅŸtÄ±r.
 	
 	printf("(%d)",harf);
-	printf("\t\t\t\tPuan: %d\tKalan Hak: %d\tİpucu kullanmak için '1' yazıp ENTER'a basınız.\n",puan,hak);
-	printf("\n\nLütfen tahmininizi yazınız:\t");
+	printf("\t\t\t\tPuan: %d\tKalan Hak: %d\tÄ°pucu kullanmak iÃ§in '1' yazÄ±p ENTER'a basÄ±nÄ±z.\n",puan,hak);
+	printf("\n\nLÃ¼tfen tahmininizi yazÄ±nÄ±z:\t");
 	
-	while (getchar() != '\n' && getchar() != EOF);   //Önceden kalan enter tuşlarını siler.
+	while (getchar() != '\n' && getchar() != EOF);   //Ã–nceden kalan enter tuÅŸlarÄ±nÄ± siler.
 	
 	char tahmin[50];
 	
 	while(hak>0 && puan>0){
-		fgets(tahmin,50,stdin);   //Kullanıcıdan tahmin alınır.
-		temizle(tahmin);          //Burada bütün harfler büyütülür ve fgets fonk. yüzünden string sonunda olan \n karakteri \0 ile değiştirilir.
+		fgets(tahmin,50,stdin);   //KullanÄ±cÄ±dan tahmin alÄ±nÄ±r.
+		temizle(tahmin);          //Burada bÃ¼tÃ¼n harfler bÃ¼yÃ¼tÃ¼lÃ¼r ve fgets fonk. yÃ¼zÃ¼nden string sonunda olan \n karakteri \0 ile deÄŸiÅŸtirilir.
 		
-		if( strcmp(tahmin,"1") == 0 ){      //İpucu sayfası açılır.
+		if( strcmp(tahmin,"1") == 0 ){      //Ä°pucu sayfasÄ± aÃ§Ä±lÄ±r.
 			puan -= ipucu(mod,uzunluk,harf,dogru_cevap,bolge,gorunen);
 			printf("\t\t\t\tPuan: %d\tKalan Hak: %d\n\n",puan,hak);
 			
@@ -122,10 +122,10 @@ int main(void) {
 		else{
 			if( strcmp(tahmin,dogru_cevap) == 0 ){
 				if(mod == 1){	
-				    printf("Tebrikler. Doğru cevabı (%s) %d. denemede buldunuz.  Kazanılan Puan: %d",dogru,8-hak,puan);
+				    printf("Tebrikler. DoÄŸru cevabÄ± (%s) %d. denemede buldunuz.  KazanÄ±lan Puan: %d",dogru,8-hak,puan);
 				}
 				else{
-					printf("Tebrikler. Doğru cevabı (%s) %d. denemede buldunuz.  Kazanılan Puan: %d",dogru,11-hak,puan);
+					printf("Tebrikler. DoÄŸru cevabÄ± (%s) %d. denemede buldunuz.  KazanÄ±lan Puan: %d",dogru,11-hak,puan);
 				}
 				break;
 			}
@@ -133,7 +133,7 @@ int main(void) {
 				hak--;
 				puan-=10;
 				if(hak != 0){
-				    printf("Yanlış cevap. Tekrar deneyiniz.\t\tPuan: %d\tKalan Hak: %d\n\n",puan,hak);
+				    printf("YanlÄ±ÅŸ cevap. Tekrar deneyiniz.\t\tPuan: %d\tKalan Hak: %d\n\n",puan,hak);
 				    printf("***********************************************************************************************************************\n");
 				}
 				
@@ -142,16 +142,17 @@ int main(void) {
 	}
 	
 	if(hak == 0){
-		printf("Hakkınız bitti.Doğru cevap:\t%s",dogru);
+		printf("HakkÄ±nÄ±z bitti.DoÄŸru cevap:\t%s",dogru);
 	}
 	else if(puan == 0){
-		printf("Puanınız bitti.Doğru cevap:\t%s",dogru);
+		printf("PuanÄ±nÄ±z bitti.DoÄŸru cevap:\t%s",dogru);
 	}
 	}
+	getchar();
 	return 0;
 }
 
-//rastgele sayı üretildi
+//rastgele sayÄ± Ã¼retildi
 int rastgele(int x){
 	
 	int random = rand() % x;	
@@ -160,7 +161,7 @@ int rastgele(int x){
 
 
 
-//Kullanıcıdan alınan tahmin kelimesinin bütün harfleri büyütülür ayrıca string içinde bulunan \n karakteri \0 ile değiştirilir. 
+//KullanÄ±cÄ±dan alÄ±nan tahmin kelimesinin bÃ¼tÃ¼n harfleri bÃ¼yÃ¼tÃ¼lÃ¼r ayrÄ±ca string iÃ§inde bulunan \n karakteri \0 ile deÄŸiÅŸtirilir. 
 void temizle(char x[]){
 	
 	int tahmin_uzunluk = strlen(x);
@@ -179,10 +180,10 @@ void temizle(char x[]){
 
 
 
-//İpucu sayfası
+//Ä°pucu sayfasÄ±
 int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[],char i_gorunen[]){
 	
-	printf("Seçmek istediğiniz ipucunun numarasını giriniz:\n\n");
+	printf("SeÃ§mek istediÄŸiniz ipucunun numarasÄ±nÄ± giriniz:\n\n");
 	
 	static int ipucu_2=1, ipucu_3=1;
 	
@@ -190,31 +191,31 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 
 
 
-    //İpucular
-	printf("-1-\t(10 Puan)\tRastgele bir harf göster.\n");
+    //Ä°pucular
+	printf("-1-\t(10 Puan)\tRastgele bir harf gÃ¶ster.\n");
 	
 	
 	if(ipucu_2 == 1){
-    	printf("-2-\t(15 Puan)\tİlk harfi göster.\t\t\t(Bir kez kullanılabilir)\n");
+    	printf("-2-\t(15 Puan)\tÄ°lk harfi gÃ¶ster.\t\t\t(Bir kez kullanÄ±labilir)\n");
 	}
 	else{
-		printf("Bu ipucu kullanıldı.\n");
+		printf("Bu ipucu kullanÄ±ldÄ±.\n");
 	}
 	
 	
 	if(ipucu_3 == 1){
     	if(i_mod == 1){
-	    	printf("-3-\t(20 Puan)\tŞehrin bulunduğu bölgeyi göster.\t(Bir kez kullanılabilir)\n");
+	    	printf("-3-\t(20 Puan)\tÅehrin bulunduÄŸu bÃ¶lgeyi gÃ¶ster.\t(Bir kez kullanÄ±labilir)\n");
 	    }
 	    else{
-    	    printf("-3-\t(20 Puan)\tÜlkenin bulunduğu kıtayı göster.\t(Bir kez kullanılabilir)\n");		
+    	    printf("-3-\t(20 Puan)\tÃœlkenin bulunduÄŸu kÄ±tayÄ± gÃ¶ster.\t(Bir kez kullanÄ±labilir)\n");		
 	    }	
 	}
 	else{
-		printf("Bu ipucu kullanıldı.\n");
+		printf("Bu ipucu kullanÄ±ldÄ±.\n");
 	}
 	
-	printf("-4-\tGeri dön.\n");
+	printf("-4-\tGeri dÃ¶n.\n");
 	
 	
 	
@@ -225,9 +226,9 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 	int sayi,p;
 	
 	switch(a){
-		case '1':	                                        //Rastgele bir harf gösterir.
-		    sayi = rand() % i_uzunluk;                      //Birden fazla kez kullanılabilir.
-     	    while(i_dogru_cevap[sayi] == ' '){              //10 puan karşılığında kullanılır.
+		case '1':	                                        //Rastgele bir harf gÃ¶sterir.
+		    sayi = rand() % i_uzunluk;                      //Birden fazla kez kullanÄ±labilir.
+     	    while(i_dogru_cevap[sayi] == ' '){              //10 puan karÅŸÄ±lÄ±ÄŸÄ±nda kullanÄ±lÄ±r.
 	   	    	sayi = rand() % i_uzunluk;                         
 	        }		        
 		    if(i_gorunen[sayi] == '_'){
@@ -247,10 +248,10 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
             
 	        break;
 	        
-	    case '2':                                          //İlk harfi gösterir.
-	    	if(ipucu_2 == 1){                              //Bir kez kullanılabilir.
-	    		if(i_gorunen[0] == '_'){                   //Eğer rastgele harfte ilk harf çıkmışsa kullanılamaz.
-				    i_gorunen[0]=i_dogru_cevap[0];         //15 puan karşılığında kullanılır.
+	    case '2':                                          //Ä°lk harfi gÃ¶sterir.
+	    	if(ipucu_2 == 1){                              //Bir kez kullanÄ±labilir.
+	    		if(i_gorunen[0] == '_'){                   //EÄŸer rastgele harfte ilk harf Ã§Ä±kmÄ±ÅŸsa kullanÄ±lamaz.
+				    i_gorunen[0]=i_dogru_cevap[0];         //15 puan karÅŸÄ±lÄ±ÄŸÄ±nda kullanÄ±lÄ±r.
 	    		    printf("%s",i_gorunen);	
 				    printf("(%d)",i_harf);
 				
@@ -258,21 +259,21 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 	                ipucu_2=0;
 				}
 				else{
-					printf("Bu ipucu kullanılamıyor.");
+					printf("Bu ipucu kullanÄ±lamÄ±yor.");
 					p=0;
 				}
 	    		
 			}
 			else{
-				printf("\nBu ipucu kullanıldı.\n");
+				printf("\nBu ipucu kullanÄ±ldÄ±.\n");
 			}
 		   
 	        break;
 	    
-		case '3':                                           //Şehrin bulunduğu bölgeyi gösterir.
-		    if(ipucu_3 == 1){                               //Ülkenin bulunduğu kıtayı gösterir.
-		    	if(i_mod == 1){                             //Bir kez kullanılabilir.
-		    		printf("%s Bölgesi",i_bolge);           //20 puan karşılığında kullanılır.
+		case '3':                                           //Åehrin bulunduÄŸu bÃ¶lgeyi gÃ¶sterir.
+		    if(ipucu_3 == 1){                               //Ãœlkenin bulunduÄŸu kÄ±tayÄ± gÃ¶sterir.
+		    	if(i_mod == 1){                             //Bir kez kullanÄ±labilir.
+		    		printf("%s BÃ¶lgesi",i_bolge);           //20 puan karÅŸÄ±lÄ±ÄŸÄ±nda kullanÄ±lÄ±r.
 				}
 				else{
 					printf("%s",i_bolge);
@@ -281,7 +282,7 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 		    	ipucu_3=0;
 			}    
 			else{
-				printf("\nBu ipucu kullanıldı.\n");
+				printf("\nBu ipucu kullanÄ±ldÄ±.\n");
 			}
 			break;
 			
@@ -290,7 +291,7 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 			break;
 			
 		default:
-			printf("\nHata: Geçersiz seçim. İpucu sayfasından çıkılıyor.\n");
+			printf("\nHata: GeÃ§ersiz seÃ§im. Ä°pucu sayfasÄ±ndan Ã§Ä±kÄ±lÄ±yor.\n");
 			p=0;
 			break;
 	    
@@ -299,3 +300,4 @@ int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[]
 	
 	return p;
 }
+
