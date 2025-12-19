@@ -1,0 +1,333 @@
+#ifndef sehirler_ulkeler_h
+#define sehirler_ulkeler_h
+
+
+struct Duzen {                  //Seçilen bir þehrin/ülkenin yapýsýný belirler.
+    char teknik_ad[50];                   //Tahmin ile karþýlaþtýrýlacak olan Ýngilizce harflerden oluþan addýr.
+    char gorsel_ad[50];                   //Oyun sonunda kullanýcýya gösterilecek olan Türkçe harflerden oluþan addýr.
+    char bolge[50];                       //Þehrin bölgesini, Ülkenin kýtasýný içerir. Ýpucu için kullanýlýr.
+};
+
+// 81 þehri plaka sýrasýna göre tutan yapýlar dizisi
+const struct Duzen Sehirler[81] = {
+	
+    // Teknik Ad       | Görsel Ad        | Bölge Adý
+
+    {"ADANA", "Adana", "Akdeniz"},
+    {"ADIYAMAN", "Adýyaman", "Güneydoðu Anadolu"},
+    {"AFYONKARAHISAR", "Afyonkarahisar", "Ege"},
+    {"AGRI", "Aðrý", "Doðu Anadolu"},
+    {"AMASYA", "Amasya", "Karadeniz"},
+    {"ANKARA", "Ankara", "Ýç Anadolu"},
+    {"ANTALYA", "Antalya", "Akdeniz"},
+    {"ARTVIN", "Artvin", "Karadeniz"},
+    {"AYDIN", "Aydýn", "Ege"},
+    {"BALIKESIR", "Balýkesir", "Marmara"},
+    {"BILECIK", "Bilecik", "Marmara"},
+    {"BINGOL", "Bingöl", "Doðu Anadolu"},
+    {"BITLIS", "Bitlis", "Doðu Anadolu"},
+    {"BOLU", "Bolu", "Karadeniz"},
+    {"BURDUR", "Burdur", "Akdeniz"},
+    {"BURSA", "Bursa", "Marmara"},
+    {"CANAKKALE", "Çanakkale", "Marmara"},
+    {"CANKIRI", "Çankýrý", "Ýç Anadolu"},
+    {"CORUM", "Çorum", "Karadeniz"},
+    {"DENIZLI", "Denizli", "Ege"},
+    {"DIYARBAKIR", "Diyarbakýr", "Güneydoðu Anadolu"},
+    {"EDIRNE", "Edirne", "Marmara"},
+    {"ELAZIG", "Elazýð", "Doðu Anadolu"},
+    {"ERZINCAN", "Erzincan", "Doðu Anadolu"},
+    {"ERZURUM", "Erzurum", "Doðu Anadolu"},
+    {"ESKISEHIR", "Eskiþehir", "Ýç Anadolu"},
+    {"GAZIANTEP", "Gaziantep", "Güneydoðu Anadolu"},
+    {"GIRESUN", "Giresun", "Karadeniz"},
+    {"GUMUSHANE", "Gümüþhane", "Karadeniz"},
+    {"HAKKARI", "Hakkâri", "Doðu Anadolu"},
+    {"HATAY", "Hatay", "Akdeniz"},
+    {"ISPARTA", "Isparta", "Akdeniz"},
+    {"MERSIN", "Mersin", "Akdeniz"},
+    {"ISTANBUL", "Ýstanbul", "Marmara"},
+    {"IZMIR", "Ýzmir", "Ege"},
+    {"KARS", "Kars", "Doðu Anadolu"},
+    {"KASTAMONU", "Kastamonu", "Karadeniz"},
+    {"KAYSERI", "Kayseri", "Ýç Anadolu"},
+    {"KIRKLARELI", "Kýrklareli", "Marmara"},
+    {"KIRSEHIR", "Kýrþehir", "Ýç Anadolu"},
+    {"KOCAELI", "Kocaeli", "Marmara"},
+    {"KONYA", "Konya", "Ýç Anadolu"},
+    {"KUTAHYA", "Kütahya", "Ege"},
+    {"MALATYA", "Malatya", "Doðu Anadolu"},
+    {"MANISA", "Manisa", "Ege"},
+    {"KAHRAMANMARAS", "Kahramanmaraþ", "Akdeniz"},
+    {"MARDIN", "Mardin", "Güneydoðu Anadolu"},
+    {"MUGLA", "Muðla", "Ege"},
+    {"MUS", "Muþ", "Doðu Anadolu"},
+    {"NEVSEHIR", "Nevþehir", "Ýç Anadolu"},
+    {"NIGDE", "Niðde", "Ýç Anadolu"},
+    {"ORDU", "Ordu", "Karadeniz"},
+    {"RIZE", "Rize", "Karadeniz"},
+    {"SAKARYA", "Sakarya", "Marmara"},
+    {"SAMSUN", "Samsun", "Karadeniz"},
+    {"SIIRT", "Siirt", "Güneydoðu Anadolu"},
+    {"SINOP", "Sinop", "Karadeniz"},
+    {"SIVAS", "Sivas", "Ýç Anadolu"},
+    {"TEKIRDAG", "Tekirdað", "Marmara"},
+    {"TOKAT", "Tokat", "Karadeniz"},
+    {"TRABZON", "Trabzon", "Karadeniz"},
+    {"TUNCELI", "Tunceli", "Doðu Anadolu"},
+    {"SANLIURFA", "Þanlýurfa", "Güneydoðu Anadolu"},
+    {"USAK", "Uþak", "Ege"},
+    {"VAN", "Van", "Doðu Anadolu"},
+    {"YOZGAT", "Yozgat", "Ýç Anadolu"},
+    {"ZONGULDAK", "Zonguldak", "Karadeniz"},
+    {"AKSARAY", "Aksaray", "Ýç Anadolu"},
+    {"BAYBURT", "Bayburt", "Karadeniz"},
+    {"KARAMAN", "Karaman", "Ýç Anadolu"},
+    {"KIRIKKALE", "Kýrýkkale", "Ýç Anadolu"},
+    {"BATMAN", "Batman", "Güneydoðu Anadolu"},
+    {"SIRNAK", "Þýrnak", "Güneydoðu Anadolu"},
+    {"BARTIN", "Bartýn", "Karadeniz"},
+    {"ARDAHAN", "Ardahan", "Doðu Anadolu"},
+    {"IGDIR", "Iðdýr", "Doðu Anadolu"},
+    {"YALOVA", "Yalova", "Marmara"},
+    {"KARABUK", "Karabük", "Karadeniz"},
+    {"KILIS", "Kilis", "Güneydoðu Anadolu"},
+    {"OSMANIYE", "Osmaniye", "Akdeniz"},
+    {"DUZCE", "Düzce", "Karadeniz"}
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 193 ülkeyi kýta ve harf sýrasýna göre tutan yapýlar dizisi
+const struct Duzen Ulkeler[196] = {
+    // Teknik Ad           | Görsel Ad             | Kýta/Bölge
+    // -------------------------------------------------------------------------
+    
+    // --- AVRUPA (44 Ülke) ---
+    {"ALMANYA", "Almanya", "Avrupa"},
+    {"ARNAVUTLUK", "Arnavutluk", "Avrupa"},
+    {"ANDORRA", "Andorra", "Avrupa"},
+    {"AVUSTURYA", "Avusturya", "Avrupa"},
+    {"BELCIKA", "Belçika", "Avrupa"},
+    {"BELARUS", "Belarus", "Avrupa"},
+    {"BOSNA HERSEK", "Bosna Hersek", "Avrupa"},
+    {"BULGARISTAN", "Bulgaristan", "Avrupa"},
+    {"CEK CUMHURIYETI", "Çek Cumhuriyeti", "Avrupa"},
+    {"DANÝMARKA", "Danimarka", "Avrupa"},
+    {"ESTONYA", "Estonya", "Avrupa"},
+    {"FINLANDIYA", "Finlandiya", "Avrupa"},
+    {"FRANSA", "Fransa", "Avrupa"},
+    {"HIRVATISTAN", "Hýrvatistan", "Avrupa"},
+    {"HOLLANDA", "Hollanda", "Avrupa"},
+    {"INGILTERE", "Ýngiltere", "Avrupa"},
+    {"IRLANDA", "Ýrlanda", "Avrupa"},
+    {"ISPANYA", "Ýspanya", "Avrupa"},
+    {"ISVEC", "Ýsveç", "Avrupa"},
+    {"ISVICRE", "Ýsviçre", "Avrupa"},
+    {"ITALYA", "Ýtalya", "Avrupa"},
+    {"IZLANDA", "Ýzlanda", "Avrupa"},
+    {"KARADAG", "Karadað", "Avrupa"},
+    {"KIBRIS RUM KESIMI", "Kýbrýs Rum Kesimi", "Avrupa"},
+    {"KOSOVA", "Kosova", "Avrupa"},
+    {"LETONYA", "Letonya", "Avrupa"},
+    {"LIECHTENSTEIN", "Lihtenþtayn", "Avrupa"},
+    {"LITVANYA", "Litvanya", "Avrupa"},
+    {"LÜKSEMBURG", "Lüksemburg", "Avrupa"},
+    {"MACARISTAN", "Macaristan", "Avrupa"},
+    {"MAKEDONYA", "Makedonya", "Avrupa"},
+    {"MALTA", "Malta", "Avrupa"},
+    {"MOLDOVA", "Moldova", "Avrupa"},
+    {"MONAKO", "Monako", "Avrupa"},
+    {"NORVEC", "Norveç", "Avrupa"},
+    {"POLONYA", "Polonya", "Avrupa"},
+    {"PORTEKIZ", "Portekiz", "Avrupa"},
+    {"ROMANYA", "Romanya", "Avrupa"},
+    {"SAN MARINO", "San Marino", "Avrupa"},
+    {"SIRBISTAN", "Sýrbistan", "Avrupa"},
+    {"SLOVAKYA", "Slovakya", "Avrupa"},
+    {"SLOVENYA", "Slovenya", "Avrupa"},
+    {"UKRAYNA", "Ukrayna", "Avrupa"},
+    {"VATIKAN", "Vatikan", "Avrupa"},
+    {"YUNANISTAN", "Yunanistan", "Avrupa"},
+    
+    // --- ASYA (48 Ülke) ---
+    {"AFGANISTAN", "Afganistan", "Asya"},
+    {"BAHREYN", "Bahreyn", "Asya"},
+    {"BANGLADES", "Bangladeþ", "Asya"},
+    {"BHUTAN", "Bhutan", "Asya"},
+    {"BIRLESIK ARAP EMIRLIKLERI", "Birleþik Arap Emirlikleri", "Asya"},
+    {"BRUNEY", "Brunei", "Asya"},
+    {"CIN", "Çin", "Asya"},
+    {"DOGU TIMOR", "Doðu Timor", "Asya"},
+    {"ENDONEZYA", "Endonezya", "Asya"},
+    {"FILIPINLER", "Filipinler", "Asya"},
+    {"FILISTIN", "Filistin", "Asya"},
+    {"GUNEY KORE", "Güney Kore", "Asya"},
+    {"GURCISTAN", "Gürcistan", "Avrupa ve Asya"}, // Çift kýta
+    {"HINDISTAN", "Hindistan", "Asya"},
+    {"IRAK", "Irak", "Asya"},
+    {"IRAN", "Ýran", "Asya"},
+    {"ISRAIL", "Ýsrail", "Asya"},
+    {"JAPONYA", "Japonya", "Asya"},
+    {"KAMBOCYA", "Kamboçya", "Asya"},
+    {"KATAR", "Katar", "Asya"},
+    {"KAZAKISTAN", "Kazakistan", "Avrupa ve Asya"}, // Çift kýta
+    {"KIRGIZISTAN", "Kýrgýzistan", "Asya"},
+    {"KUZEY KORE", "Kuzey Kore", "Asya"},
+    {"KUVEYT", "Kuveyt", "Asya"},
+    {"LAOS", "Laos", "Asya"},
+    {"LÜBNAN", "Lübnan", "Asya"},
+    {"MALDIVLER", "Maldivler", "Asya"},
+    {"MALEZYA", "Malezya", "Asya"},
+    {"MOÐOLISTAN", "Moðolistan", "Asya"},
+    {"MYANMAR", "Myanmar", "Asya"},
+    {"NEPAL", "Nepal", "Asya"},
+    {"ÖZBEKISTAN", "Özbekistan", "Asya"},
+    {"PAKISTAN", "Pakistan", "Asya"},
+    {"RUSYA", "Rusya", "Avrupa ve Asya"}, // Çift kýta
+    {"SINGAPUR", "Singapur", "Asya"},
+    {"SRI LANKA", "Sri Lanka", "Asya"},
+    {"SURÝYE", "Suriye", "Asya"},
+    {"TACIKISTAN", "Tacikistan", "Asya"},
+    {"TAYLAND", "Tayland", "Asya"},
+    {"TAYVAN", "Tayvan", "Asya"},
+    {"TURKMENISTAN", "Türkmenistan", "Asya"},
+    {"TURKIYE", "Türkiye", "Avrupa ve Asya"}, // Çift kýta
+    {"UMMAN", "Umman", "Asya"},
+    {"ÜRDÜN", "Ürdün", "Asya"},
+    {"VIETNAM", "Vietnam", "Asya"},
+    {"YEMEN", "Yemen", "Asya"},
+    {"ERMENISTAN", "Ermenistan", "Asya"},
+    {"AZERBAYCAN", "Azerbaycan", "Avrupa ve Asya"}, // Çift kýta
+
+    // --- AFRIKA (54 Ülke) ---
+    {"CEZAYIR", "Cezayir", "Afrika"},
+    {"MISIR", "Mýsýr", "Afrika ve Asya"}, // Çift kýta
+    {"GUNEY AFRIKA", "Güney Afrika", "Afrika"},
+    {"NIJERYA", "Nijerya", "Afrika"},
+    {"FAS", "Fas", "Afrika"},
+    {"KENYA", "Kenya", "Afrika"},
+    {"ETIYOPYA", "Etiyopya", "Afrika"},
+    {"TANZANYA", "Tanzanya", "Afrika"},
+    {"UGANDA", "Uganda", "Afrika"},
+    {"SUDAN", "Sudan", "Afrika"},
+    {"DEMOKRATIK KONGO CUMHURIYETI", "Demokratik Kongo Cumhuriyeti", "Afrika"},
+    {"RUANDA", "Ruanda", "Afrika"},
+    {"BURUNDI", "Burundi", "Afrika"},
+    {"SOMALI", "Somali", "Afrika"},
+    {"LIBYA", "Libya", "Afrika"},
+    {"TUNUS", "Tunus", "Afrika"},
+    {"CEYHUN", "Ceyhun", "Afrika"},
+    {"ZIMBABVE", "Zimbabve", "Afrika"},
+    {"ZAMBÝYA", "Zambiya", "Afrika"},
+    {"MADAGASKAR", "Madagaskar", "Afrika"},
+    {"NAMÝBYA", "Namibya", "Afrika"},
+    {"BOTSVANA", "Botsvana", "Afrika"},
+    {"ANGOLA", "Angola", "Afrika"},
+    {"GABON", "Gabon", "Afrika"},
+    {"KAMERUN", "Kamerun", "Afrika"},
+    {"NIJER", "Nijer", "Afrika"},
+    {"MALI", "Mali", "Afrika"},
+    {"MORITANYA", "Moritanya", "Afrika"},
+    {"SENEGAL", "Senegal", "Afrika"},
+    {"GINE", "Gine", "Afrika"},
+    {"GANA", "Gana", "Afrika"},
+    {"FIEL", "Fildiþi Sahili", "Afrika"},
+    {"BURKINA FASO", "Burkina Faso", "Afrika"},
+    {"BENIN", "Benin", "Afrika"},
+    {"TOGO", "Togo", "Afrika"},
+    {"SIERRA LEONE", "Sierra Leone", "Afrika"},
+    {"LIBERYA", "Liberya", "Afrika"},
+    {"KOMORLAR", "Komorlar", "Afrika"},
+    {"CAP VERDE", "Yeþil Burun Adalarý", "Afrika"},
+    {"Ekvator Ginesi", "Ekvator Ginesi", "Afrika"},
+    {"Eritre", "Eritre", "Afrika"},
+    {"Cibuti", "Cibuti", "Afrika"},
+    {"LESOTHO", "Lesotho", "Afrika"},
+    {"MALAWI", "Malawi", "Afrika"},
+    {"MAURITIUS", "Mauritius", "Afrika"},
+    {"MOZAMBÝK", "Mozambik", "Afrika"},
+    {"SEYÞELLER", "Seyþeller", "Afrika"},
+    {"SWAZILAND", "Svaziland", "Afrika"},
+    {"SAO TOME VE PRINCIPE", "Sao Tome ve Principe", "Afrika"},
+    {"GUNEY SUDAN", "Güney Sudan", "Afrika"},
+    {"ORTA AFRIKA CUMHURIYETI", "Orta Afrika Cumhuriyeti", "Afrika"},
+    {"KONGO CUMHURIYETI", "Kongo Cumhuriyeti", "Afrika"},
+    {"BURKINA FASO", "Burkina Faso", "Afrika"},
+    {"ÇAD", "Çad", "Afrika"},
+
+    // --- KUZEY AMERIKA (23 Ülke) ---
+    {"AMERIKA BIRLESIK DEVLETLERI", "Amerika Birleþik Devletleri", "Kuzey Amerika"},
+    {"KANADA", "Kanada", "Kuzey Amerika"},
+    {"MEKSIKA", "Meksika", "Kuzey Amerika"},
+    {"PANAMA", "Panama", "Kuzey ve Güney Amerika"}, // Çift kýta
+    {"BAHAMALAR", "Bahamalar", "Kuzey Amerika"},
+    {"BARBADOS", "Barbados", "Kuzey Amerika"},
+    {"BELIZE", "Belize", "Kuzey Amerika"},
+    {"KOSTA RIKA", "Kosta Rika", "Kuzey Amerika"},
+    {"KÜBA", "Küba", "Kuzey Amerika"},
+    {"DOMINIK CUMHURIYETI", "Dominik Cumhuriyeti", "Kuzey Amerika"},
+    {"EL SALVADOR", "El Salvador", "Kuzey Amerika"},
+    {"GRENADA", "Grenada", "Kuzey Amerika"},
+    {"GUATEMALA", "Guatemala", "Kuzey Amerika"},
+    {"HAITI", "Haiti", "Kuzey Amerika"},
+    {"HONDURAS", "Honduras", "Kuzey Amerika"},
+    {"JAMAÝKA", "Jamaika", "Kuzey Amerika"},
+    {"NIKARAGUA", "Nikaragua", "Kuzey Amerika"},
+    {"SAINT KITTS VE NEVIS", "Saint Kitts ve Nevis", "Kuzey Amerika"},
+    {"SAINT LUCIA", "Saint Lucia", "Kuzey Amerika"},
+    {"SAINT VINCENT VE GRENADINLER", "Saint Vincent ve Grenadinler", "Kuzey Amerika"},
+    {"TRINIDAD VE TOBAGO", "Trinidad ve Tobago", "Kuzey Amerika"},
+    {"ANTIGUA VE BARBUDA", "Antigua ve Barbuda", "Kuzey Amerika"},
+    {"DOMINIKA", "Dominika", "Kuzey Amerika"},
+    
+    // --- GÜNEY AMERIKA (12 Ülke) ---
+    {"ARJANTIN", "Arjantin", "Güney Amerika"},
+    {"BREZILYA", "Brezilya", "Güney Amerika"},
+    {"BOLIVYA", "Bolivya", "Güney Amerika"},
+    {"SILI", "Þili", "Güney Amerika"},
+    {"KOLOMBIYA", "Kolombiya", "Güney Amerika"},
+    {"EKVADOR", "Ekvador", "Güney Amerika"},
+    {"GUYANA", "Guyana", "Güney Amerika"},
+    {"PARAGUAY", "Paraguay", "Güney Amerika"},
+    {"PERU", "Peru", "Güney Amerika"},
+    {"SURINAM", "Surinam", "Güney Amerika"},
+    {"URUGUAY", "Uruguay", "Güney Amerika"},
+    {"VENEZUELA", "Venezuela", "Güney Amerika"},
+
+    // --- Okyanusya (14 Ülke) ---
+    {"AVUSTRALYA", "Avustralya", "Okyanusya"},
+    {"YENI ZELANDA", "Yeni Zelanda", "Okyanusya"},
+    {"FÝJÝ", "Fiji", "Okyanusya"},
+    {"PAPUA YENI GINE", "Papua Yeni Gine", "Okyanusya"},
+    {"SAMOA", "Samoa", "Okyanusya"},
+    {"TONGA", "Tonga", "Okyanusya"},
+    {"TUVALU", "Tuvalu", "Okyanusya"},
+    {"VANUATU", "Vanuatu", "Okyanusya"},
+    {"KIRIBATI", "Kiribati", "Okyanusya"},
+    {"MARSHALL ADALARI", "Marshall Adalarý", "Okyanusya"},
+    {"MIKRONESYA", "Mikronezya", "Okyanusya"},
+    {"NAURU", "Nauru", "Okyanusya"},
+    {"PALAU", "Palau", "Okyanusya"},
+    {"SOLOMON ADALARI", "Solomon Adalarý", "Okyanusya"}
+};
+
+#endif
