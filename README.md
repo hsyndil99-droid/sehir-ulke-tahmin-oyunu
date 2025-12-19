@@ -4,6 +4,8 @@ Bu proje, C dili kullanılarak geliştirilmiş, interaktif bir kelime tahmin oyu
 
 👤 Geliştirici Bilgileri
 
+Okul/Bölüm: Marmara Üniversitesi TBMYO/Bilgisayar Programcılığı 
+
 Ad Soyad: Hüseyin Dil
 
 Öğrenci Numarası: 360125058
