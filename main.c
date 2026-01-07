@@ -1,306 +1,513 @@
 #include <stdio.h>
-#include <time.h>              //srand fonksiyonu için gerekli
-#include <stdlib.h>            //srand fonksiyonu için gerekli
-#include <locale.h>            //türkçe çıktı karakterler için gerekli
-#include <string.h>            //dizilerdeki işlemler için gerekli              
-#include <ctype.h>             //tahmin kelimelerindeki harfleri büyütmek için gerekli[toupper()]
-#include "sehirler_ulkeler.h"  
+#include <time.h>            
+#include <stdlib.h>          
+#include <locale.h>          
+#include <string.h>          
+#include <ctype.h>           
+#include <windows.h>         
+#include <conio.h>  
+#include "sehirler_ulkeler.h" 
+#define EKRAN_GENISLIGI 120
 
-int rastgele(int x);
+void gotoxy(int x, int y);
+void renkDegistir(int renkKodu);
+void ortayaYaz(char *metin, int y, int renk);
+void kurallariGoster();
+void skoruKaydet(char *isim, int puan, int mod);
+void puanTablosunuGoster();
 void temizle(char x[]);
-int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[],char i_gorunen[]);
-
-
-int main(void) {
-	setlocale(LC_ALL, "Turkish");       //Türkçe karakterleri terminalde doğru gösterir.
-	srand(time(NULL));
-	
-	
-	//KURALLAR
-
-	printf("---Şehir/Ülke Tahmin Oyununa Hoşgeldiniz---\n\n\a");
-	printf("Oyuna başlamadan önce genel kuralları görmek için ENTER'a basınız.\n");
-	getchar();
-	printf("Oyuna 150 puan ile başlıyorsunuz.\n");
-	printf("Her bilmediğiniz turda 10 puan kaybedersiniz.\n");
-	printf("Ayrıca puan kullanarak ipucu alabilirsiniz.\n");
-	printf("Her modda yalnızca 3 ipucu vardır.\n");
-	printf("Puanınız veya hakkınız bittiğinde oyun sonlanır.\n\n");
-	printf("Tahmin yapacağınız kelimelerde lütfen Türkçe karakter(ç,ğ,ı,ö,ş,ü,Ç,Ğ,İ,Ö,Ş,Ü) kullanmayınız.\n");
-	printf("İZMİR yerine Izmir, Çin halk cumhuriyeti yerine Cin Halk Cumhuriyeti vb.\n\n");
-	printf("Oyun modu seçmek için ENTER'a basın.\n\n");
-	getchar();
-	
-	
-	
-	// Mod seçimi ve rastgele şehir/ülke seçilmesi
-	
-	printf("Şehir modu için '1' tuşlayınız.\t\t\tÜlke modu için '2' tuşlayınız.\n");
-	int secim = getchar();
-	
-	char dogru_cevap[50];
-	char dogru[50];
-	char bolge[50];
-	int mod,indeks,hak,puan=150;
-	
-	switch(secim){
-		case '1':
-			printf("\n\n\nŞehir modunda 7 hakkınız vardır.\n");
-			printf("Şehir Modu Başlatılıyor...\n\n\n");
-			
-			indeks=rastgele(81);                                             //Rastgele şehir seçildi.  
-			strcpy(dogru_cevap, Sehirler[indeks].teknik_ad);                 //Şehir ile birlikte teknik isim ve bulunduğu bölge değişkene atandı.
-			strcpy(dogru,Sehirler[indeks].gorsel_ad);
-			strcpy(bolge,Sehirler[indeks].bolge);
-			hak=7;
-			mod=1;
-			
-			break;
-		case '2':
-			printf("\n\n\nÜlke modunda 10 hakkınız vardır.\n");
-			printf("Ülke Modu Başlatılıyor...\n\n\n");
-			
-			indeks=rastgele(196);                                            //Rastgele ülke seçildi.
-			strcpy(dogru_cevap, Ulkeler[indeks].teknik_ad);                  //Ülke ile birlikte teknik isim ve bulunduğu kıta değişkene atandı.
-			strcpy(dogru,Ulkeler[indeks].gorsel_ad);
-			strcpy(bolge,Ulkeler[indeks].bolge);
-			hak=10;
-			mod=2;
-			
-			break;
-		default:
-            printf("\nHata: Geçersiz seçim. Programdan çıkılıyor.\n");       
-            mod=0;
-            break;
-	}
-	if(mod == 0){
-	}
-	else{
-	
-	printf("***********************************************************************************************************************\n\n\n");
-	//Oyun Başlangıç ekranı
-	
-	if(mod == 1){
-		printf("Şehir:");
-	}
-	else{
-		printf("Ülke:");
-	}
-	
-	int i,harf=0,uzunluk=strlen(dogru_cevap);         //Seçilen cevap harf sayısınca alt tire(_) ile ekrana yazdırıldı. 
-	char gorunen[50];                                 //Ayrıca ekrana yazılan alt tireli gizli cevap gorunen değişkenine olduğu gibi yazıldı.
-	for(i=0;i<uzunluk;i++){                           //Bunun sebebi ipucu sayfasında daha rahat işlem yapabilmek için.
-		if(dogru_cevap[i] == ' '){
-			printf(" ");
-			gorunen[i]=' ';
-		}
-		else{
-			printf("_");
-			gorunen[i]='_';
-			harf++;
-		}
-	}
-	gorunen[uzunluk] = '\0';       //Gorunen değişkeninin son satırına \0 eklenerek  tam bir string yapılmıştır.
-	
-	printf("(%d)",harf);
-	printf("\t\t\t\tPuan: %d\tKalan Hak: %d\tİpucu kullanmak için '1' yazıp ENTER'a basınız.\n",puan,hak);
-	printf("\n\nLütfen tahmininizi yazınız:\t");
-	
-	while (getchar() != '\n' && getchar() != EOF);   //Önceden kalan enter tuşlarını siler.
-	
-	char tahmin[50];
-	
-	while(hak>0 && puan>0){
-		fgets(tahmin,50,stdin);   //Kullanıcıdan tahmin alınır.
-		temizle(tahmin);          //Burada bütün harfler büyütülür ve fgets fonk. yüzünden string sonunda olan \n karakteri \0 ile değiştirilir.
-		
-		if( strcmp(tahmin,"1") == 0 ){      //İpucu sayfası açılır.
-			puan -= ipucu(mod,uzunluk,harf,dogru_cevap,bolge,gorunen);
-			printf("\t\t\t\tPuan: %d\tKalan Hak: %d\n\n",puan,hak);
-			
-		}
-		else{
-			if( strcmp(tahmin,dogru_cevap) == 0 ){
-				if(mod == 1){	
-				    printf("Tebrikler. Doğru cevabı (%s) %d. denemede buldunuz.  Kazanılan Puan: %d",dogru,8-hak,puan);
-				}
-				else{
-					printf("Tebrikler. Doğru cevabı (%s) %d. denemede buldunuz.  Kazanılan Puan: %d",dogru,11-hak,puan);
-				}
-				break;
-			}
-			else{
-				hak--;
-				puan-=10;
-				if(hak != 0){
-				    printf("Yanlış cevap. Tekrar deneyiniz.\t\tPuan: %d\tKalan Hak: %d\n\n",puan,hak);
-				    printf("***********************************************************************************************************************\n");
-				}
-				
-			}
-		}
-	}
-	
-	if(hak == 0){
-		printf("Hakkınız bitti.Doğru cevap:\t%s",dogru);
-	}
-	else if(puan == 0){
-		printf("Puanınız bitti.Doğru cevap:\t%s",dogru);
-	}
-	}
-	getchar();
-	return 0;
-}
-
-//rastgele sayı üretildi
-int rastgele(int x){
-	
-	int random = rand() % x;	
-	return random;
-}
+int rastgele(int x);
+int ipucu(int i_mod, int i_uzunluk, char i_dogru_cevap[], char i_gorunen[], int *ip1, int *ip2, int *ip3);
 
 
 
-//Kullanıcıdan alınan tahmin kelimesinin bütün harfleri büyütülür ayrıca string içinde bulunan \n karakteri \0 ile değiştirilir. 
-void temizle(char x[]){
-	
-	int tahmin_uzunluk = strlen(x);
-	
-	if (x[tahmin_uzunluk - 1] == '\n') {
-        x[tahmin_uzunluk - 1] = '\0';
-        tahmin_uzunluk--;
-    }
-    
-	int j;    
-	for(j=0;j<tahmin_uzunluk;j++){
-    	x[j] = toupper(x[j]);
-	}
-}
+// --- ANA PROGRAM ---
 
+int main(void){
+    system("mode con: cols=120 lines=35");
+    system("chcp 1254");
+    setlocale(LC_ALL, "Turkish");
+    srand(time(NULL));
+    char oyuncuIsmi[50];
+    int isimGirildi = 0;
 
-
-
-//İpucu sayfası
-int ipucu(int i_mod,int i_uzunluk,int i_harf,char i_dogru_cevap[],char i_bolge[],char i_gorunen[]){
-	
-	printf("Seçmek istediğiniz ipucunun numarasını giriniz:\n\n");
-	
-	static int ipucu_2=1, ipucu_3=1;
-	
-
-
-
-
-    //İpucular
-	printf("-1-\t(10 Puan)\tRastgele bir harf göster.\n");
-	
-	
-	if(ipucu_2 == 1){
-    	printf("-2-\t(15 Puan)\tİlk harfi göster.\t\t\t(Bir kez kullanılabilir)\n");
-	}
-	else{
-		printf("Bu ipucu kullanıldı.\n");
-	}
-	
-	
-	if(ipucu_3 == 1){
-    	if(i_mod == 1){
-	    	printf("-3-\t(20 Puan)\tŞehrin bulunduğu bölgeyi göster.\t(Bir kez kullanılabilir)\n");
-	    }
-	    else{
-    	    printf("-3-\t(20 Puan)\tÜlkenin bulunduğu kıtayı göster.\t(Bir kez kullanılabilir)\n");		
-	    }	
-	}
-	else{
-		printf("Bu ipucu kullanıldı.\n");
-	}
-	
-	printf("-4-\tGeri dön.\n");
-	
-	
-	
-	
-	
-	
-	int a = getchar();
-	int sayi,p;
-	
-	switch(a){
-		case '1':	                                        //Rastgele bir harf gösterir.
-		    sayi = rand() % i_uzunluk;                      //Birden fazla kez kullanılabilir.
-     	    while(i_dogru_cevap[sayi] == ' '){              //10 puan karşılığında kullanılır.
-	   	    	sayi = rand() % i_uzunluk;                         
-	        }		        
-		    if(i_gorunen[sayi] == '_'){
-	        	i_gorunen[sayi] = i_dogru_cevap[sayi];
-	            printf("%s",i_gorunen);
-                printf("(%d)",i_harf);
-				}
-			else{
-				while(i_gorunen[sayi] != '_'){              
-					sayi = rand() % i_uzunluk;
-				}				
-				i_gorunen[sayi] = i_dogru_cevap[sayi];
-		        printf("%s",i_gorunen);
-	            printf("(%d)",i_harf);
-		    }
-            p=10;
+    while (1) {
+        // --- ISIM GIRISI (Eger girilmemisse veya degistirilmisse) ---
+        if (isimGirildi == 0){
+            system("cls");
             
-	        break;
-	        
-	    case '2':                                          //İlk harfi gösterir.
-	    	if(ipucu_2 == 1){                              //Bir kez kullanılabilir.
-	    		if(i_gorunen[0] == '_'){                   //Eğer rastgele harfte ilk harf çıkmışsa kullanılamaz.
-				    i_gorunen[0]=i_dogru_cevap[0];         //15 puan karşılığında kullanılır.
-	    		    printf("%s",i_gorunen);	
-				    printf("(%d)",i_harf);
-				
-	                p=15;
-	                ipucu_2=0;
+            ortayaYaz("ŞEHİR / ÜLKE TAHMİN OYUNUNA HOŞGELDİNİZ!", 10, 11);
+            ortayaYaz("LÜFTEN İSMİNİZİ GİRİN (Tek kelime)", 12, 15);
+            gotoxy(55, 14); 
+            scanf("%s", oyuncuIsmi);
+            temizle(oyuncuIsmi);
+            while (getchar() != '\n'); //Bellekte biriken enterları siliyor
+            kurallariGoster();
+            isimGirildi = 1;
+        }
+
+        system("cls");
+        
+        // İsmi en üstte gösteriyoruz
+        char isimBar[50];
+        sprintf(isimBar, "AKTİF OYUNCU: %s", oyuncuIsmi);
+        ortayaYaz(isimBar, 1, 14);
+
+        ortayaYaz("===== ANA MENÜ =====", 5, 11);
+        ortayaYaz("[1] ŞEHİR MODU", 10, 15);
+        ortayaYaz("[2] ÜLKE MODU", 12, 15);
+		ortayaYaz("[3] OYUNCU DEĞİŞTİR", 16, 10);
+        ortayaYaz("[4] PUAN TABLOSU", 18, 14);
+	    ortayaYaz("[5] KURALLARI TEKRAR OKU", 20, 7);
+        ortayaYaz("[0] ÇIKIŞ", 24, 12);
+        
+        int secim = getch();
+
+        if (secim == '0') break;                              // Oyundan çıkılır
+        if (secim == '3'){ isimGirildi = 0; continue; }       // Başa dönüp isim isteyecek
+        if (secim == '4'){ puanTablosunuGoster(); continue; } // Puan tablosunu açacak
+        if (secim == '5'){ kurallariGoster(); continue; }     // Kuralları tekrar gösterecek
+        
+        
+        char dogru_cevap[50], dogru[50], bolge[50];
+        int mod, hak, puan = 150;
+
+        if (secim == '1'){
+            int idx = rastgele(81);
+            strcpy(dogru_cevap, Sehirler[idx].teknik_ad);
+            strcpy(dogru, Sehirler[idx].gorsel_ad);
+            strcpy(bolge, Sehirler[idx].bolge);
+            hak = 7;
+			mod = 1;
+        } 
+		else if (secim == '2'){
+            int idx = rastgele(196);
+            strcpy(dogru_cevap, Ulkeler[idx].teknik_ad);
+            strcpy(dogru, Ulkeler[idx].gorsel_ad);
+            strcpy(bolge, Ulkeler[idx].bolge);
+            hak = 10;
+			mod = 2;
+        } 
+		else continue;
+
+        char gorunen[50], hatali_tahminler[1000] = "";
+        int i, harf = 0, uzunluk = strlen(dogru_cevap);
+        int ip1 = 1, ip2 = 1, ip3 = 1;
+        int bolge_acik = 0;
+        for(i = 0; i < uzunluk; i++){
+            if(dogru_cevap[i] == ' '){
+            	gorunen[i] = ' ';
+			}
+            else{
+			    gorunen[i] = '_';
+			    harf++;
+			}
+        }
+        gorunen[uzunluk] = '\0';
+
+        while(hak > 0 && puan > 0){
+            system("cls");
+            
+            // Her ekranın en üstünde Oyuncu ismi sabit
+            sprintf(isimBar, "OYUNCU: %s", oyuncuIsmi);
+            ortayaYaz(isimBar, 1, 14);
+
+            if (mod == 1){
+                ortayaYaz("MOD: ŞEHİR TAHMİNİ", 3, 11);
+            } 
+			else{
+                ortayaYaz("MOD: ÜLKE TAHMİNİ", 3, 11);
+            }
+            
+            char istatistik[100];
+            sprintf(istatistik, "PUAN: %d | HAK: %d", puan, hak);
+            ortayaYaz(istatistik, 5, 10);
+
+            char gizli[100];
+            sprintf(gizli,"%s (%d Harf)", gorunen, harf);
+            ortayaYaz(gizli,8,14);
+
+            if(bolge_acik){
+                char bolgeyazdir[100];
+                if(mod == 1){
+                	sprintf(bolgeyazdir, "(Bölge: %s Bölgesi)", bolge);
 				}
 				else{
-					printf("Bu ipucu kullanılamıyor.");
-					p=0;
+					sprintf(bolgeyazdir, "(Kıta: %s Kıtası)", bolge);
 				}
-	    		
-			}
+                
+                ortayaYaz(bolgeyazdir, 10, 13);
+            }
+
+            if(strlen(hatali_tahminler) > 0){
+                ortayaYaz("YANLIŞ TAHMİNLER:", 19, 12);
+                ortayaYaz(hatali_tahminler, 20, 8);
+            }
+
+            ortayaYaz("Tahmininiz: ", 14, 15);
+            ortayaYaz("İpucu için '1' yazıp ENTER'a basınız.", 16, 8);
+            ortayaYaz("Çıkış için '0' yazıp ENTER'a basınız.", 17,8);
+            gotoxy(66,14);
+            renkDegistir(15);
+            char tahmin[50];
+            fgets(tahmin, 50, stdin);
+            temizle(tahmin);
+
+            if(strcmp(tahmin, "1") == 0) {
+                int p_eksi = ipucu(mod, uzunluk, dogru_cevap, gorunen, &ip1, &ip2, &ip3);
+                puan -= p_eksi;
+                if(p_eksi == 20){
+                	bolge_acik = 1;
+				} 
+            } 
+            else if(strcmp(tahmin, "0") == 0) break;
+			else if(strcmp(tahmin, dogru_cevap) == 0){
+                system("cls");
+                
+                ortayaYaz("TEBRİKLER KAZANDINIZ!", 12, 10);
+                char final_mesaj[100];
+                sprintf(final_mesaj, "Cevap: %s | Kazanılan Puan: %d", dogru, puan);
+                ortayaYaz(final_mesaj, 14, 14);
+                ortayaYaz("Devam etmek için bir tuşa basınız.",16,8);
+                
+                skoruKaydet(oyuncuIsmi, puan, mod);
+                getch(); 
+				break;
+            } 
 			else{
-				printf("\nBu ipucu kullanıldı.\n");
-				p=0;
-			}
-		   
-	        break;
-	    
-		case '3':                                           //Şehrin bulunduğu bölgeyi gösterir.
-		    if(ipucu_3 == 1){                               //Ülkenin bulunduğu kıtayı gösterir.
-		    	if(i_mod == 1){                             //Bir kez kullanılabilir.
-		    		printf("%s Bölgesi",i_bolge);           //20 puan karşılığında kullanılır.
-				}
-				else{
-					printf("%s",i_bolge);
-				}
-		    	p=20;
-		    	ipucu_3=0;
-			}    
-			else{
-				printf("\nBu ipucu kullanıldı.\n");
-				p=0;
-			}
-			break;
-			
-		case '4':
-			p=0;
-			break;
-			
-		default:
-			printf("\nHata: Geçersiz seçim. İpucu sayfasından çıkılıyor.\n");
-			p=0;
-			break;
-	    
-	}
-	while (getchar() != '\n' && getchar() != EOF);
-	
-	return p;
+                hak--;
+				puan -= 10;
+                strcat(hatali_tahminler, tahmin); 
+				strcat(hatali_tahminler, " - ");
+				gotoxy(66,14);
+				renkDegistir(12);
+				printf("YANLIŞ!                                               ");
+				Sleep(700);
+            }
+        }
+        if(hak <= 0 || puan <= 0){
+            system("cls");
+            
+            if(puan <= 0){
+                ortayaYaz("PUANINIZ BİTTİ! KAYBETTİNİZ.", 12, 12); // Kırmızı/Gri renk tonu
+            } 
+            else{
+                ortayaYaz("HAKKINIZ BİTTİ! KAYBETTİNİZ.", 12, 12);
+            }
+            
+            char kayip_mesaj[100];
+            sprintf(kayip_mesaj, "Doğru Cevap: %s", dogru);
+            ortayaYaz(kayip_mesaj, 14, 15);
+            ortayaYaz("Devam etmek için bir tuşa basınız.",16,8);
+            
+            skoruKaydet(oyuncuIsmi, 0, mod);
+            getch();
+        }
+    }
+    return 0;
 }
 
 
+
+// --- GÖRSEL YARDIMCI FONKSİYONLAR ---
+
+void gotoxy(int x, int y){
+    COORD coord;
+    coord.X = x;
+    coord.Y = y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
+void renkDegistir(int renkKodu){
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), renkKodu);
+    
+    // --- STANDART RENK KODLARI ---
+    // 0  : Siyah 
+    // 1  : Koyu Mavi
+    // 2  : Koyu Yeşil
+    // 3  : Koyu Turkuaz
+    // 4  : Koyu Kırmızı
+    // 5  : Koyu Mor
+    // 6  : Kirli Sarı / Zeytin Yeşili
+    // 7  : Standart Beyaz (Griye yakın)
+    // 8  : Gri 
+    // 9  : Parlak Mavi
+    // 10 : Parlak Yeşil 
+    // 11 : Parlak Turkuaz 
+    // 12 : Parlak Kırmızı 
+    // 13 : Parlak Mor / Pembe
+    // 14 : Parlak Sarı 
+    // 15 : Parlak Beyaz 
+}
+
+void ortayaYaz(char *metin, int y, int renk){          
+    int uz = strlen(metin);
+    int x = (EKRAN_GENISLIGI - uz) / 2;
+    if (x < 0) x = 0;
+    renkDegistir(renk);
+    gotoxy(x, y);
+    printf("%s", metin);
+}
+
+
+
+// --- KURALLAR SAYFASI ---
+
+void kurallariGoster(){
+    system("cls");
+    
+    ortayaYaz("==============================================", 5, 11);
+    ortayaYaz("        OYUN KURALLARI VE BİLGİLERİ          ", 6, 14);
+    ortayaYaz("==============================================", 7, 11);
+    
+    ortayaYaz("1. Her oyuna 150 PUAN ile başlarsınız.", 10, 15);
+    ortayaYaz("2. Yanlış tahminlerinizde 10 PUAN ve 1 HAK kaybedersiniz.", 12, 15);
+    ortayaYaz("3. Şehir modunda 7, Ülke modunda 10 hakkınız vardır.", 14, 15);
+    ortayaYaz("4. İpucu marketinden puan karşılığı yardım alabilirsiniz.", 16, 15);
+    ortayaYaz("5. Puanınız veya Hakkınız biterse oyun sona erer.", 18, 12); 
+    
+    ortayaYaz("6. Kazandığınız puanlar mod bazlı olarak Puan Tablosuna kaydedilir.", 21, 10); 
+    
+    ortayaYaz("Devam etmek için bir tuşa basın...", 26, 8);
+    getch();
+}
+
+
+
+// --- DOSYA İŞLEMLERİ VE PUAN TABLOSU ---
+
+void skoruKaydet(char *isim, int puan, int mod){
+    FILE *dosya = fopen("puan_tablosu.txt", "r");
+    struct Oyuncu oyuncular[100];
+    int sayac = 0, bulundu = 0;
+    int i; 
+
+    if (dosya != NULL){
+        while (fscanf(dosya, "%s %d %d %d %d", oyuncular[sayac].isim, 
+                      &oyuncular[sayac].sehir_oyun, &oyuncular[sayac].sehir_puan, 
+                      &oyuncular[sayac].ulke_oyun, &oyuncular[sayac].ulke_puan) != EOF) {
+            
+            if (strcmp(oyuncular[sayac].isim, isim) == 0) {
+                if (mod == 1) { 
+                    oyuncular[sayac].sehir_oyun++;
+                    oyuncular[sayac].sehir_puan += puan;
+                } else { 
+                    oyuncular[sayac].ulke_oyun++;
+                    oyuncular[sayac].ulke_puan += puan;
+                }
+                bulundu = 1;
+            }
+            sayac++;
+        }
+        fclose(dosya);
+    }
+
+    if (bulundu == 0){
+        strcpy(oyuncular[sayac].isim, isim);
+        oyuncular[sayac].sehir_oyun = 0;
+        oyuncular[sayac].sehir_puan = 0;
+        oyuncular[sayac].ulke_oyun = 0;
+        oyuncular[sayac].ulke_puan = 0;
+
+        if (mod == 1) {
+            oyuncular[sayac].sehir_oyun = 1;
+            oyuncular[sayac].sehir_puan = puan;
+        } else {
+            oyuncular[sayac].ulke_oyun = 1;
+            oyuncular[sayac].ulke_puan = puan;
+        }
+        sayac++;
+    }
+
+    dosya = fopen("puan_tablosu.txt", "w");
+    if (dosya != NULL){
+        for (i = 0; i < sayac; i++) {
+            fprintf(dosya, "%s %d %d %d %d\n", oyuncular[i].isim, 
+                    oyuncular[i].sehir_oyun, oyuncular[i].sehir_puan, 
+                    oyuncular[i].ulke_oyun, oyuncular[i].ulke_puan);
+        }
+        fclose(dosya);
+    }
+}
+
+void puanTablosunuGoster(){
+    system("cls");
+    
+    FILE *dosya = fopen("puan_tablosu.txt", "r");
+    
+	
+	ortayaYaz("========================= PUAN TABLOSU =========================", 4, 14);
+	
+	char baslik[100] = "İSİM               | ŞEHİR (Oyun/Puan) | ÜLKE (Oyun/Puan)   |  TOPLAM PUAN";
+    int baslikUzunluk = strlen(baslik);
+    int tabloBaslangicX = (EKRAN_GENISLIGI - baslikUzunluk) / 2;
+    renkDegistir(11);
+    gotoxy(tabloBaslangicX, 7);
+    printf("%s", baslik);
+    renkDegistir(8);
+    gotoxy(tabloBaslangicX, 8);
+    int k;
+    for(k=0; k<baslikUzunluk; k++){
+    	printf("-");
+	} 
+    
+    if (dosya == NULL){
+        ortayaYaz("Henüz kayıtlı skor yok!", 11, 12);
+    } else{
+        char isim[50];
+        int sOyun, sPuan, uOyun, uPuan, satir = 10;
+        while (fscanf(dosya, "%s %d %d %d %d", isim, &sOyun, &sPuan, &uOyun, &uPuan) != EOF) {
+            if(strlen(isim) > 18){
+            	isim[18] = '\0'; 
+			} 
+            int toplam = sPuan + uPuan;
+            renkDegistir(15);
+            gotoxy(tabloBaslangicX, satir++);
+            printf("%-19s|  %3d / %-10d |  %3d / %-11d |  %d", isim, sOyun, sPuan, uOyun, uPuan, toplam);
+        }
+        fclose(dosya);
+    }
+    ortayaYaz("Menüye dönmek için herhangi bir tuşa basin...", 32, 8);
+    getch();
+}
+
+
+
+// --- OYUN YARDIMCI FONKSIYONLARI ---
+
+int rastgele(int x){
+	return rand() % x;
+}
+
+void temizle(char x[]){
+    int u = strlen(x);
+    if (x[u - 1] == '\n'){
+    	x[u - 1] = '\0';
+	} 
+    
+    int j;
+    for (j = 0; j<u; j++) {
+        unsigned char c = (unsigned char)x[j];
+        
+        if (c == 'i') x[j] = 'İ';      // i -> İ
+        else if (c == 253) x[j] = 'I'; // ı -> I
+        else if (c == 'ş') x[j] = 'Ş'; // ş -> Ş
+        else if (c == 'ğ') x[j] = 'Ğ'; // ğ -> Ğ
+        else if (c == 'ç') x[j] = 'Ç'; // ç -> Ç
+        else if (c == 'ö') x[j] = 'Ö'; // ö -> Ö
+        else if (c == 'ü') x[j] = 'Ü'; // ü -> Ü
+        else {x[j] = toupper(c);} 
+    }
+}
+
+int ipucu(int i_mod, int i_uzunluk, char i_dogru_cevap[], char i_gorunen[], int *ip1, int *ip2, int *ip3) {
+    system("cls");
+    
+    ortayaYaz("--- İPUCU MARKETİ ---", 3, 14);
+    
+    
+  
+  
+    if(*ip1 == 1){
+		ortayaYaz("[1] Rastgele Harf Aç (10 Puan)", 7, 7);
+	}
+    else{
+    	ortayaYaz("[1] Tüm harfler açıldı", 7, 8);
+	} 
+    
+    
+    
+    if(*ip2 == 1){
+    	ortayaYaz("[2] İlk Harfi Göster (15 Puan)", 9, 7);
+	} 
+    else{
+    	ortayaYaz("[2] Bu ipucu kullanıldı", 9, 8);
+	} 
+    
+    
+    char buffer[100];
+    if(*ip3 == 1){
+    	if(i_mod == 1){
+    		sprintf(buffer, "[3] %s Göster (20 Puan)", "Bölgeyi");
+		}
+		else{
+			sprintf(buffer, "[3] %s Göster (20 Puan)", "Kıtayı");
+		}
+		ortayaYaz(buffer, 11, 7);
+	} 
+    else{
+		ortayaYaz("[3] Bu ipucu kullanıldı", 11, 8);
+	} 
+    
+    
+    
+    ortayaYaz("[4] İptal / Geri Dön", 14, 11);
+    
+    
+    
+    int a = getch();
+    int k,p = 0;
+    switch(a){
+        case '1':
+            if(*ip1 == 1){
+                int var_mi = 0;
+                for(k = 0; k < i_uzunluk; k++){
+                	if(i_gorunen[k] == '_'){
+                		var_mi++;
+					}
+				} 
+                if(var_mi > 1){
+                    int sayi = rand() % i_uzunluk; 
+                    while(i_dogru_cevap[sayi] == ' ' || i_gorunen[sayi] != '_'){
+                        sayi = rand() % i_uzunluk;
+                    }
+                    i_gorunen[sayi] = i_dogru_cevap[sayi];
+                    p = 10;
+                }
+                else{
+                	int sayi = rand() % i_uzunluk; 
+                    while(i_dogru_cevap[sayi] == ' ' || i_gorunen[sayi] != '_'){
+                        sayi = rand() % i_uzunluk;
+                    }
+                    i_gorunen[sayi] = i_dogru_cevap[sayi];
+                    p = 10;
+                	*ip1 = 0;
+				}
+            }
+            else{
+            	ortayaYaz("Tüm harfler zaten açıldı", 16, 12);
+                Sleep(1000);
+			}
+			break;
+			
+        case '2':
+            if(*ip2 == 1 && i_gorunen[0] == '_'){ 
+			    i_gorunen[0] = i_dogru_cevap[0]; 
+				p = 15; 
+				*ip2 = 0;
+			}
+			else{
+				if(*ip2 == 0){
+					ortayaYaz("Bu ipucu zaten kullanıldı", 16, 12);
+                	Sleep(1000);
+				}
+				else{
+					ortayaYaz("Bu ipucu kullanılamıyor", 16, 12);
+                	Sleep(1000);
+				}
+			}
+            break;
+            
+        case '3':
+            if(*ip3 == 1){
+			    p = 20;
+				*ip3 = 0;
+			}
+			else{
+				ortayaYaz("Bu ipucu zaten kullanıldı", 16, 12);
+                	Sleep(1000);
+			}
+            break;
+    }
+    return p;
+}
